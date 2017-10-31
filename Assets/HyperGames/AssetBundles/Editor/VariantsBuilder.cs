@@ -75,48 +75,41 @@ public static class VariantsBuilder {
     // !! Plugins shouldn't move or delete assets around. If they do, then BuildVariants
     // needs to scan for new bundles after each plugin run.
 
+    // It uses the config to figure out which variants to build.
+    // It looks through all the bundle names and looks for variants that matches the resolution variants
+    // defined in the config. Based on the match, it makes a note of the missing vairants and calculates
+    // a scaling factor for each, and uses that to scale the asset up or down.
+    // Assets for valid bundles are moved to the temp directory. For each variant needed, a copy of
+    // the asset is made, and the bundle name and new variant is set. The asset bundles are build using
+    // the assets in the temp directory. Aassets belonging to a bundle that does not require a screen res
+    // variant are left in place.
+    // It doesn't matter where assets are before the bundles are build. When loading an asset from a bundle,
+    // on the relative bundle path is used, like "folder/bundle.variant/asset.name"
+
     [MenuItem("Dev/Build Variants")]
     public static void BuildVariants() {
 
-        const string configPath = "Assets/AssetBundleConfig.asset";
+        const string configPath = "Assets/Configs/AssetBundleManagerConfig.asset";
+        // Directory for storing the new bundles
         string bundlesRoot = Application.dataPath + "/__BUNDLES__";
 
         AssetDatabase.StartAssetEditing();
 
         // Load the AssetBundleConfig
         Debug.Log("[BV] Does "+
-            Application.dataPath+"/AssetBundleConfig.asset"+
+            Application.dataPath+"/"+configPath+
             " exist? "+
-            (File.Exists(Application.dataPath+"/AssetBundleConfig.asset") ? "Yes" : "No"));
+            (File.Exists(Application.dataPath+"/"+configPath) ? "Yes" : "No"));
 
-        string[] configs = AssetDatabase.FindAssets("t:AssetBundleConfig");
-        Debug.Log("[BV] Found "+configs.Length+" AssetBundleConfig files");
-        foreach (string c in configs) {
-            string cp = AssetDatabase.GUIDToAssetPath(c);
-            Debug.Log("[BV] config: "+cp);
-
-            AssetBundleManagerConfig cfg = AssetDatabase.LoadAssetAtPath<AssetBundleManagerConfig>(cp);
-            Debug.Log("[BV] "+(cfg != null ? "Could" : "Couldn't")+" LoadAssetAtPath<AssetBundleConfig> from " + cp);
-            AssetBundleManagerConfig cfg2 = (AssetBundleManagerConfig)AssetDatabase.LoadAssetAtPath(cp, typeof(AssetBundleManagerConfig));
-            Debug.Log("[BV] "+(cfg2 != null ? "Could" : "Couldn't")+" LoadAssetAtPath typeof(AssetBundleConfig) from " + cp);
+        AssetBundleManagerConfig config = AssetDatabase.LoadAssetAtPath<AssetBundleManagerConfig>(configPath);
+        if (config == null) {
+            Debug.Log("[BV] Cannot load<AssetBundleManagerConfig> from " + configPath);
+            return;
         }
-
-        AssetBundleManagerConfig configuration = AssetDatabase.LoadAssetAtPath<AssetBundleManagerConfig>(configPath);
-//        if (config == null) {
-//            Debug.Log("[BV] Cannot load<AssetBundleConfig> from " + configPath);
-////            return;
-//        }
-//
-//        AssetBundleConfig config2 = (AssetBundleConfig)AssetDatabase.LoadAssetAtPath(configPath, typeof(AssetBundleConfig));
-//        if (config2 == null) {
-//            Debug.Log("[BV] Cannot load typeof(AssetBundleConfig) from " + configPath);
-////            return;
-//        }
-        return;
 
         // Sort the resolution variants.
         // It doesn't matter if they are sorted in the asset, they should be anyway.
-        configuration.resolutionVariants.Sort(new ResolutionVariantComparer());
+        config.resolutionVariants.Sort(new ResolutionVariantComparer());
 
         // Validate defined resolutionVariants with asset bundles
         Debug.Log("[BV] Validate resolutionVariants");
@@ -131,7 +124,7 @@ public static class VariantsBuilder {
             Debug.Log("[BV] Variant: "+variant);
             
             bool found = false;
-            foreach (ResolutionVariant rv in configuration.resolutionVariants) {
+            foreach (ResolutionVariant rv in config.resolutionVariants) {
                 found |= rv.name == variant;
             }
             Debug.Log("[BV] Found variant? "+found);
@@ -259,8 +252,8 @@ public static class VariantsBuilder {
             // Scale variants
 
             List<string> resVariants = new List<string>();
-            for (int r = 0; r < configuration.resolutionVariants.Count; ++r) {
-                resVariants.Add(configuration.resolutionVariants[r].name);
+            for (int r = 0; r < config.resolutionVariants.Count; ++r) {
+                resVariants.Add(config.resolutionVariants[r].name);
             }
             
             List<int> variantScales = new List<int>();
