@@ -8,20 +8,30 @@ namespace HyperGames.AssetBundles {
 
     public class AssetBundleManager : ILoadOpHandler {
 
-        private readonly BundleLoader                        loader;
-        private readonly AssetBundleCache                    cache;
-        private readonly ObjectPool<BundleLoadOperation>     loadOps;
-        private readonly BundleManagerUpdate                 updater;
-        private readonly AssetBundleManagerConfig            config;
-        private readonly List<Coroutine>                     streams;
-        private int                                          freeStreams;
-        private readonly Dictionary<string, Action<string>>  loadHandlers;
-        private AssetBundleManifest                          manifest;
-        private Action<string[]>                             onManifestLoaded = str => { };
-        private Action<List<string>>                         onLoadBundles = str => { };
-        private Func<string, string>                         onLoadBundle = str => str;
-        
+        private BundleLoader                       loader;
+        private AssetBundleCache                   cache;
+        private ObjectPool<BundleLoadOperation>    loadOps;
+        private BundleManagerUpdate                updater;
+        private AssetBundleManagerConfig           config;
+        private List<Coroutine>                    streams;
+        private int                                freeStreams;
+        private Dictionary<string, Action<string>> loadHandlers;
+        private AssetBundleManifest                manifest;
+        private Action<string[]>                   onManifestLoaded = str => { };
+        private Action<List<string>>               onLoadBundles = str => { };
+        private Func<string, string>               onLoadBundle = str => str;
+        private readonly ILog                      log;
+
+        public AssetBundleManager(AssetBundleManagerConfig cfg, GameObject owner, ILog log) {
+            Init(cfg, owner);
+            this.log = log;
+        }
+
         public AssetBundleManager(AssetBundleManagerConfig cfg, GameObject owner) {
+            Init(cfg, owner);
+        }
+
+        private void Init(AssetBundleManagerConfig cfg, GameObject owner) {
             config = cfg;
             freeStreams = config.numBundleLoaders;
             
@@ -108,7 +118,7 @@ namespace HyperGames.AssetBundles {
         }
 
         public void OnBundleLoaded(string bundleName, int streamIndex, AssetBundle bundle) {
-            Debug.Log("[ABM] OnBundleLoaded, bundle: "+bundleName+", stream: "+streamIndex);
+            Log("[ABM] OnBundleLoaded, bundle: "+bundleName+", stream: "+streamIndex);
             cache.Add(bundleName, bundle);
             ++freeStreams;
 //            Debug.Log("Free streams: "+freeStreams);
@@ -122,7 +132,7 @@ namespace HyperGames.AssetBundles {
         }
 
         public void OnBundleFailed(int streamIndex, int retries) {
-            Debug.Log("[ABM] OnBundleFailed, stream: "+streamIndex);
+            Log("[ABM] OnBundleFailed, stream: "+streamIndex);
             if (retries < 3) {
                 //start a new load
             }
@@ -131,12 +141,12 @@ namespace HyperGames.AssetBundles {
         }
 
         public void OnLoadOpComplete(BundleLoadOperation op) {
-            Debug.Log("[ABM] OnLoadOpComplete");
+            Log("[ABM] OnLoadOpComplete");
             loadOps.Despawn(op);
             if (loadOps.numSpawned > 0) {
                 return;
             }
-            Debug.Log("[ABM] All LoadOps complete");
+            Log("[ABM] All LoadOps complete");
             updater.Deactivate();
             loader.StopAllCoroutines();
             streams.Clear();
@@ -144,13 +154,13 @@ namespace HyperGames.AssetBundles {
         }
 
         public void OnLoadOpFailed(BundleLoadOperation op) {
-            Debug.Log("[ABM] OnLoadOpFailed");
-            Debug.Log("[ABM] error: "+op.error+" msg: "+op.errorMsg);
+            Log("[ABM] OnLoadOpFailed");
+            Log("[ABM] error: "+op.error+" msg: "+op.errorMsg);
             loadOps.Despawn(op);
             if (loadOps.numSpawned > 0) {
                 return;
             }
-            Debug.Log("[ABM] All LoadOps complete");
+            Log("[ABM] All LoadOps complete");
             updater.Deactivate();
             loader.StopAllCoroutines();
             streams.Clear();
@@ -176,41 +186,33 @@ namespace HyperGames.AssetBundles {
             loadOps.Spawn(out op);
             op.Init(bundles);
 
-            string bundleList = "";
+            Log("[ABM] Spawned LoadOp with bundles:");
+            
             for (int i = 0; i < bundles.Count; ++i) {
-                bundleList += bundles[i] + "\n";
+                Log("    " + bundles[i]);
             }
             
-            Debug.Log("[ABM] Spawned LoadOp with bundles:\n"+bundleList);
             
             updater.Activate();
             return op;
         }
 
         private void OnMasterManifestLoaded(string bundleName) {
-            Debug.Log("[ABM] OnMasterManifestLoaded");
+            Log("[ABM] OnMasterManifestLoaded");
             loadHandlers.Remove(bundleName);
             AssetBundle bundle;
             cache.TryGetBundle(bundleName, out bundle);
             manifest = bundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-//            Debug.Log("Manifest: "+manifest);
+            Log("Manifest: "+manifest);
 
             onManifestLoaded(manifest.GetAllAssetBundlesWithVariant());
         }
 
-        [Conditional("UNITY_EDITOR")]
-        private static void Log(string msg) {
-            Debug.Log(msg);
-        }
-
-        [Conditional("UNITY_EDITOR")]
-        private static void LogError(string msg) {
-            Debug.LogError(msg);
-        }
-
-        [Conditional("UNITY_EDITOR")]
-        private static void LogWarning(string msg) {
-            Debug.LogWarning(msg);
+        private void Log(string msg) {
+            if (log == null) {
+                return;
+            }
+            log.Log(msg);
         }
     }
 

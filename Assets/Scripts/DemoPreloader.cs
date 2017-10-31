@@ -13,15 +13,18 @@ public class DemoPreloader : MonoBehaviour {
 
     private AssetBundleManager abman;
     private VariantsResolver variants;
+    private ILog log;
 
     private void Start() {
         Assert.IsNotNull(cfg, "AssetBundleConfig is null");
+
+        log = GetComponent<LogToTextArea>() as ILog;
 
         doneLabel.enabled = false;
         
         variants = new VariantsResolver(cfg);
         variants.RegisterResolutionVariants();
-        abman = new AssetBundleManager(cfg, gameObject);
+        abman = new AssetBundleManager(cfg, gameObject, log);
         abman.AddVariantsResolver(variants);
         StartCoroutine(Load());
     }
