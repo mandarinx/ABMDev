@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: brunette
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    packedHash:
+      serializedVersion: 2
+      Hash: 0f06577f7580d8df30df07f60531569f
+    variantMultiplier: 1
+    bindAsDefault: 1
+    finalFormat: 4
+    hashString: 0f06577f7580d8df30df07f60531569f
+    totalSpriteSurfaceArea: 36864
+    packables:
+    - {fileID: 102900000, guid: 07bed72e1341b4feda66f368b846664e, type: 3}
+    packedSpriteRenderDataKeys:
+    - d7c3b7153c7c0423bbf724ded082d21a: 21300000
+    - 4debd249adf7b455683357c364db56fa: 21300000
+    - 02f0d89a333b144f19fab3a92621cce6: 21300000
+    - 0d41ed842c43a4da9a4b8fbddf0e8f26: 21300000
+    - 033a1bbb9ef86448e88747ae346cfd9a: 21300000
+    - bccc0ab8b643940c9ae101f9bbc2bf73: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: d7c3b7153c7c0423bbf724ded082d21a, type: 3}
+  - {fileID: 21300000, guid: 4debd249adf7b455683357c364db56fa, type: 3}
+  - {fileID: 21300000, guid: 02f0d89a333b144f19fab3a92621cce6, type: 3}
+  - {fileID: 21300000, guid: 0d41ed842c43a4da9a4b8fbddf0e8f26, type: 3}
+  - {fileID: 21300000, guid: 033a1bbb9ef86448e88747ae346cfd9a, type: 3}
+  - {fileID: 21300000, guid: bccc0ab8b643940c9ae101f9bbc2bf73, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - brunette-sad-listening
+  - brunette-listening
+  - brunette-talking
+  - brunette-angry-talking
+  - brunette-sad-talking
+  - brunette-angry-listening
+  m_Tag: brunette
+  m_IsVariant: 0

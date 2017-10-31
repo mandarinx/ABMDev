@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: blonde
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 0
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    packedHash:
+      serializedVersion: 2
+      Hash: 63236fb1eb996a7c8954b649f4622c6e
+    variantMultiplier: 1
+    bindAsDefault: 1
+    finalFormat: 4
+    hashString: 63236fb1eb996a7c8954b649f4622c6e
+    totalSpriteSurfaceArea: 92160
+    packables:
+    - {fileID: 102900000, guid: b6205b2b29ac9448dace58ccb3f23d63, type: 3}
+    packedSpriteRenderDataKeys:
+    - 28ee1c6b6b73f4db9828a251bfbd7800: 21300000
+    - b809859cdace74945a872b6992beca56: 21300000
+    - da3af409bed3942908cb05a9fae0c28e: 21300000
+    - 4476aaf7fd3d0474b829e5d6240d6568: 21300000
+    - eb0d69014e82448e6a1f612cc45bee4e: 21300000
+    - 3a93506411de4499ea19c2fb17f365bf: 21300000
+    - 466751a3aeb09422aacc6a1a9e51540d: 21300000
+    - b1e236ada566c42f2ad6b8b2f1c4b746: 21300000
+    - b347bc223f1ac4a388c3f2eafdf459d5: 21300000
+    - 7e0aed0533d6847f79ca24ec8b17fec3: 21300000
+    - df51c42a480f046198cd7ab2a2b17340: 21300000
+    - 64f0f13df820047c08b6a826d2e67e45: 21300000
+    - bc1089758712c4e0a87c2ae9ef057d7c: 21300000
+    - 233cf4d0d91284a56b6f486a96c2f9b1: 21300000
+    - f8b86b3f3ce12415b8f4f3c34e12e5d9: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 28ee1c6b6b73f4db9828a251bfbd7800, type: 3}
+  - {fileID: 21300000, guid: b809859cdace74945a872b6992beca56, type: 3}
+  - {fileID: 21300000, guid: da3af409bed3942908cb05a9fae0c28e, type: 3}
+  - {fileID: 21300000, guid: 4476aaf7fd3d0474b829e5d6240d6568, type: 3}
+  - {fileID: 21300000, guid: eb0d69014e82448e6a1f612cc45bee4e, type: 3}
+  - {fileID: 21300000, guid: 3a93506411de4499ea19c2fb17f365bf, type: 3}
+  - {fileID: 21300000, guid: 466751a3aeb09422aacc6a1a9e51540d, type: 3}
+  - {fileID: 21300000, guid: b1e236ada566c42f2ad6b8b2f1c4b746, type: 3}
+  - {fileID: 21300000, guid: b347bc223f1ac4a388c3f2eafdf459d5, type: 3}
+  - {fileID: 21300000, guid: 7e0aed0533d6847f79ca24ec8b17fec3, type: 3}
+  - {fileID: 21300000, guid: df51c42a480f046198cd7ab2a2b17340, type: 3}
+  - {fileID: 21300000, guid: 64f0f13df820047c08b6a826d2e67e45, type: 3}
+  - {fileID: 21300000, guid: bc1089758712c4e0a87c2ae9ef057d7c, type: 3}
+  - {fileID: 21300000, guid: 233cf4d0d91284a56b6f486a96c2f9b1, type: 3}
+  - {fileID: 21300000, guid: f8b86b3f3ce12415b8f4f3c34e12e5d9, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - blonde-angry-listening
+  - blonde-angry-talking-3
+  - blonde-angry-talking-2
+  - blonde-angry-talking
+  - blonde-angry-talking-4
+  - blonde-talking
+  - blonde-sad-listening
+  - blonde-sad-talking-2
+  - blonde-sad-talking-3
+  - blonde-sad-talking-4
+  - blonde-talking-3
+  - blonde-talking-2
+  - blonde-sad-talking
+  - blonde-talking-4
+  - blonde-listening
+  m_Tag: blonde
+  m_IsVariant: 0
