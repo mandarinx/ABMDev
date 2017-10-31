@@ -21,7 +21,5 @@ MonoBehaviour:
     maxDP: 1
   - name: 2x
     maxDP: 2
-  - name: 4x
-    maxDP: 4
   editorResolutionVariant: 2x
   isTestingIntegration: 0
