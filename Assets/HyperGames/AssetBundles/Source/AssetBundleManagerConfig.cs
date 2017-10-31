@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using HyperGames.AssetBundles;
 using UnityEngine;
 
-namespace HyperGames.AssetBundlesConfig {
+namespace HyperGames.AssetBundles {
 
     [CreateAssetMenu(menuName = "Asset Bundle Manager Config", fileName = "AssetBundleManagerConfig.asset")]
     [Serializable]

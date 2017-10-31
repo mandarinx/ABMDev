@@ -2,7 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using HyperGames.AssetBundles;
-using HyperGames.AssetBundlesConfig;
 
 public class LoadGameObject : MonoBehaviour {
     

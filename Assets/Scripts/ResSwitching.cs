@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using HyperGames.AssetBundles;
-using HyperGames.AssetBundlesConfig;
 
 public class ResSwitching : MonoBehaviour {
 

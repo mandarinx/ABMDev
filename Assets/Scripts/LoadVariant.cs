@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using HyperGames.AssetBundles;
-using HyperGames.AssetBundlesConfig;
 using UnityEngine.Assertions;
 using UnityEngine.U2D;
 using UnityEngine.UI;

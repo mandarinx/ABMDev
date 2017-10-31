@@ -1,4 +1,4 @@
-﻿using HyperGames.AssetBundlesConfig;
+﻿using HyperGames.AssetBundles;
 using UnityEditor;
 using UnityEngine;
 using ABM;

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
-using HyperGames.AssetBundlesConfig;
 using Debug = UnityEngine.Debug;
 
 namespace HyperGames.AssetBundles {
