@@ -319,7 +319,7 @@ public static class VariantsBuilder {
                         Type spriteAtlasUtil = editorAssembly.GetType("UnityEditor.U2D.SpriteAtlasUtility");
                         MethodInfo PackAtlases = spriteAtlasUtil.GetMethod("PackAtlases", BindingFlags.Static | BindingFlags.NonPublic);
                         PackAtlases.Invoke(null, new object[] {
-                            new SpriteAtlas[] { atlas },
+                            new [] { atlas },
                             EditorUserBuildSettings.activeBuildTarget
                         });
                         continue;
